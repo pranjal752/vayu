@@ -14,9 +14,9 @@ export default function App() {
         display: 'flex',
         height: '100vh',
         overflow: 'hidden',
-        background: '#05080f',
-        color: '#e2e8f0',
-        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        background: 'linear-gradient(160deg, #0e1b17 0%, #132520 100%)',
+        color: '#dbe7e2',
+        fontFamily: "'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
       }}>
         <Sidebar />
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
@@ -24,8 +24,8 @@ export default function App() {
           <main style={{
             flex: 1,
             overflow: 'auto',
-            padding: '22px 26px',
-            background: '#05080f',
+            padding: '22px 18px 22px 22px',
+            background: 'transparent',
           }}>
             <Routes>
               <Route path="/"           element={<Navigate to="/dashboard" replace />} />
