@@ -1,33 +1,306 @@
-# Pollution Intelligence Platform Frontend
+# VAYU Frontend — Pollution Intelligence Dashboard
 
-Frontend for the Pollution Intelligence Platform, a ward-level air quality monitoring and mitigation system designed for municipal administrators, environmental agencies, citizens, and researchers.
+Interactive hyper-local AQI monitoring dashboard for **Ghaziabad, Uttar Pradesh**.
 
-## Product Overview
+The frontend visualizes:
 
-The platform is intended to support real-time and predictive air quality intelligence at a hyper-local level. It combines environmental sensor data, weather inputs, and machine learning outputs to help users monitor pollution, understand likely source contributors, receive health guidance, and take operational action.
+- Ward-wise AQI data
+- Pollution source detection
+- 6–72 hour ML forecast
+- Satellite fire hotspots
+- Real-time alerts
+- Citizen reports
+- Environmental risk index
 
-Core goals:
+Built with a modern geospatial UI to help administrators, analysts, and citizens monitor pollution and take action.
 
-- Detect localized pollution hotspots.
-- Identify probable pollution sources.
-- Provide automated policy recommendations for administrators.
-- Deliver personalized health advisories to citizens.
-- Enable data-driven environmental governance.
+---
 
-## Target Users
+## Tech Stack
 
-| User | Need |
+| Technology | Purpose |
 | --- | --- |
-| Municipal administrators | Identify pollution sources and enforce actions |
-| Environmental agencies | Data analytics and trend monitoring |
-| Citizens | Local air quality updates and health guidance |
-| Researchers | Access to granular environmental datasets |
+| React + Vite | Frontend framework |
+| TailwindCSS | UI styling |
+| Mapbox GL | Interactive geospatial maps |
+| Chart.js / Recharts | AQI charts & analytics |
+| Socket.io / WebSocket | Real-time AQI updates |
+| Axios | API communication |
+| Zustand / Redux | State management |
 
-## Objectives
+---
 
-- Provide hyper-local AQI monitoring at ward or block level.
-- Detect pollution sources using machine learning models.
-- Predict AQI trends and pollution spikes.
+## Features
+
+### Hyper-Local AQI Map
+
+- Ward-level pollution visualization
+- Color-coded AQI heatmap
+- Micro-zone grid analysis
+
+### Real-Time AQI Monitoring
+
+- Live sensor data
+- WebSocket updates
+- Pollution spike alerts
+
+### ML Source Detection
+
+Identifies probable pollution sources:
+
+- Construction dust
+- Biomass burning
+- Vehicle emissions
+- Industrial pollution
+
+### AQI Forecast
+
+Predicts pollution for the next:
+
+- 6 hours
+- 24 hours
+- 72 hours
+
+Using XGBoost forecasting models from backend.
+
+### Satellite Integration
+
+Uses NASA FIRMS fire data to detect:
+
+- Crop burning
+- Wildfires
+- Thermal hotspots
+
+### Environmental Risk Index
+
+Calculates ward-level risk score (0–100) using:
+
+- AQI
+- Forecast trends
+- Population exposure
+- Pollution persistence
+
+### Citizen Reports
+
+Citizens can report pollution sources:
+
+- Garbage burning
+- Dust from construction
+- Industrial smoke
+
+Reports appear on the map for administrators.
+
+### Policy Simulation Dashboard
+
+Admins can simulate mitigation strategies like:
+
+- Road watering
+- Construction ban
+- Traffic restrictions
+
+And see predicted AQI reduction.
+
+---
+
+## Quick Start
+
+### 1. Install dependencies
+
+```bash
+cd vayu-frontend
+npm install
+```
+
+### 2. Configure environment
+
+Create `.env`:
+
+```env
+VITE_API_URL=http://localhost:8000
+VITE_MAPBOX_TOKEN=your_mapbox_token
+```
+
+### 3. Start development server
+
+```bash
+npm run dev
+```
+
+Open: [http://localhost:5173](http://localhost:5173)
+
+---
+
+## Project Structure
+
+```
+src
+│
+├── components
+│   ├── AQICard.jsx
+│   ├── WardMap.jsx
+│   ├── PollutionSources.jsx
+│   ├── ForecastChart.jsx
+│   ├── AlertsPanel.jsx
+│
+├── pages
+│   ├── Dashboard.jsx
+│   ├── WardDetails.jsx
+│   ├── Analytics.jsx
+│   ├── Reports.jsx
+│
+├── services
+│   ├── api.js
+│   ├── websocket.js
+│
+├── store
+│   ├── useAQIStore.js
+│
+├── utils
+│   ├── aqiColors.js
+│   ├── formatters.js
+│
+└── App.jsx
+```
+
+---
+
+## API Integration
+
+The frontend communicates with the backend through REST APIs.
+
+### Example API calls
+
+**Get wards AQI**
+```
+GET /api/v1/wards/
+```
+
+**Ward forecast**
+```
+GET /api/v1/wards/{id}/forecast
+```
+
+**Pollution sources**
+```
+GET /api/v1/wards/{id}/sources
+```
+
+**Citizen reports**
+```
+POST /api/v1/reports/
+```
+
+---
+
+## Real-Time Updates
+
+The dashboard uses WebSockets.
+
+**Connect to AQI stream**
+```
+ws://localhost:8000/ws/aqi
+```
+
+**Ward stream**
+```
+ws://localhost:8000/ws/ward/{id}
+```
+
+**Alerts stream**
+```
+ws://localhost:8000/ws/alerts
+```
+
+---
+
+## Map Layers
+
+| Layer | Description |
+| --- | --- |
+| AQI Heatmap | Ward-wise pollution |
+| Micro Zones | High-resolution pollution grid |
+| Pollution Sources | ML predicted sources |
+| Satellite Hotspots | NASA fire detection |
+| Citizen Reports | Crowd-reported pollution |
+
+---
+
+## User Roles
+
+### Admin
+- Policy simulation
+- Sensor management
+- Analytics dashboard
+
+### Analyst
+- Pollution trend analysis
+- Intelligence reports
+
+### Citizen
+- AQI monitoring
+- Pollution reporting
+- Health advisories
+
+---
+
+## Dashboard Screens
+
+### City Overview
+- Live AQI heatmap
+- Top pollution hotspots
+- Upcoming pollution spikes
+
+### Ward Intelligence
+- AQI history
+- Source detection
+- Risk index
+- Forecast charts
+
+### Analytics
+- Seasonal trends
+- Monthly averages
+- Peak pollution events
+
+### Reports
+- Citizen complaints
+- Environmental violations
+
+---
+
+## Deployment
+
+**Build production version**
+
+```bash
+npm run build
+```
+
+**Preview production build**
+
+```bash
+npm run preview
+```
+
+---
+
+## Future Improvements
+
+- Mobile responsive citizen app
+- AI-powered mitigation recommendations
+- Drone pollution monitoring
+- Predictive traffic pollution model
+- IoT low-cost sensor integration
+
+---
+
+## Project Goal
+
+VAYU aims to transform city-level pollution monitoring into hyper-local environmental intelligence, enabling:
+
+- Faster pollution detection
+- Data-driven policy decisions
+- Citizen participation
+- Health risk mitigation
 - Offer automated mitigation and policy recommendations.
 - Deliver personalized health advisories.
 - Support faster, data-driven decision making.
