@@ -116,7 +116,7 @@ export default function Reports() {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(330px, 0.95fr) minmax(0, 1.5fr) minmax(260px, 0.8fr)', gap: 14, alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 14, alignItems: 'start' }}>
         <div style={card({ padding: 18 })}>
           <div style={{ fontSize: 13, fontWeight: 700, color: '#eaf5ef', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
             <MapPin size={14} style={{ color: '#38bdf8' }} /> Submit Pollution Report

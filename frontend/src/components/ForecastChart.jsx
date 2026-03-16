@@ -1,5 +1,5 @@
 import {
-  AreaChart, Area, LineChart, Line, CartesianGrid,
+  AreaChart, Area, CartesianGrid,
   XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine
 } from 'recharts'
 import { getAQIColor, getAQILabel } from '../utils/aqiColors'
@@ -81,8 +81,7 @@ export default function ForecastChart({ data = [], title = '72-Hour AQI Forecast
             <ReferenceLine key={v} y={v} stroke="rgba(148,163,184,0.07)" strokeDasharray="3 3" />
           ))}
           <Area type="monotone" dataKey="pm25" stroke="#64748b" strokeWidth={1} fill="url(#pm25Grad)" dot={false} />
-          <Area type="monotone" dataKey="aqi"  stroke={mainColor} strokeWidth={2} fill="url(#aqiGrad)" dot={false}
-            strokeDasharray={(d, i) => (i >= splitIdx ? '5 3' : '0')} />
+          <Area type="monotone" dataKey="aqi" stroke={mainColor} strokeWidth={2} fill="url(#aqiGrad)" dot={false} />
         </AreaChart>
       </ResponsiveContainer>
     </div>

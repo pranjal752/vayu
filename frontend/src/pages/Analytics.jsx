@@ -218,8 +218,7 @@ export default function Analytics() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns:
-            "minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(280px, 1fr)",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
           gap: 14,
         }}
       >
@@ -451,8 +450,7 @@ export default function Analytics() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns:
-            "minmax(0, 1.35fr) minmax(0, 1fr) minmax(250px, 1fr)",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
           gap: 14,
         }}
       >
@@ -607,7 +605,7 @@ export default function Analytics() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
           gap: 14,
         }}
       >

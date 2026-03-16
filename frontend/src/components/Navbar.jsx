@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Bell, RefreshCw, Cloud } from 'lucide-react'
+import { Bell, RefreshCw, Cloud, Menu, RadioTower } from 'lucide-react'
 import useAQIStore from '../store/useAQIStore'
 import { getAQIColor, getAQILabel } from '../utils/aqiColors'
 import { formatTime, formatDate } from '../utils/formatters'
@@ -13,7 +13,7 @@ const HEALTH_SHORT = {
   'Hazardous': '⚠ Hazardous — stay indoors',
 }
 
-export default function Navbar() {
+export default function Navbar({ onToggleSidebar = () => {} }) {
   const { cityAqi, alerts } = useAQIStore()
   const [time, setTime] = useState(new Date())
   const [refreshing, setRefreshing] = useState(false)
@@ -34,13 +34,13 @@ export default function Navbar() {
   const healthShort = HEALTH_SHORT[aqiLabel] ?? ''
 
   return (
-    <header style={{
-      height: 62,
-      background: 'rgba(17,39,33,0.86)',
-      borderBottom: '1px solid rgba(167,243,208,0.12)',
+    <header className="topbar-shell" style={{
+      height: 68,
+      background: 'linear-gradient(90deg, rgba(9,24,21,0.9) 0%, rgba(10,29,25,0.88) 50%, rgba(7,34,31,0.84) 100%)',
+      borderBottom: '1px solid rgba(148,163,184,0.15)',
       display: 'flex',
       alignItems: 'center',
-      padding: '0 22px',
+      padding: '0 16px 0 14px',
       gap: 14,
       backdropFilter: 'blur(10px)',
       flexShrink: 0,
@@ -54,11 +54,15 @@ export default function Navbar() {
         animation: 'pulseGlow 3s ease-in-out infinite',
       }} />
 
+      <button className="sidebar-toggle-btn" onClick={onToggleSidebar} aria-label="Open navigation">
+        <Menu size={15} />
+      </button>
+
       {/* Page title */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
         <div style={{
           width: 28, height: 28, borderRadius: 7,
-          background: 'linear-gradient(135deg, #1d4ed8, #7c3aed)',
+          background: 'linear-gradient(135deg, #14b8a6, #0e7490)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           flexShrink: 0,
         }}>
@@ -76,6 +80,7 @@ export default function Navbar() {
 
       {/* Live indicator */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <RadioTower size={12} style={{ color: '#22c55e', opacity: 0.9 }} />
         <span style={{
           width: 7, height: 7, borderRadius: '50%', background: '#22c55e',
           display: 'inline-block', animation: 'pulseDot 2s infinite',
@@ -85,8 +90,8 @@ export default function Navbar() {
       </div>
 
       {/* AQI Badge */}
-      <div style={{
-        padding: '5px 12px',
+      <div className="topbar-aqi-badge" style={{
+        padding: '6px 12px',
         borderRadius: 9,
         background: `linear-gradient(135deg, ${aqiColor}18 0%, ${aqiColor}08 100%)`,
         border: `1px solid ${aqiColor}35`,
@@ -111,7 +116,7 @@ export default function Navbar() {
       </div>
 
       {/* Clock */}
-      <div style={{ textAlign: 'right' }}>
+      <div className="topbar-clock" style={{ textAlign: 'right' }}>
         <div style={{
           fontSize: 13.5, fontWeight: 700, color: '#e2e8f0',
           fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.3px',
@@ -125,6 +130,7 @@ export default function Navbar() {
       <button
         onClick={handleRefresh}
         title="Refresh data"
+        className="topbar-icon-btn"
         style={{
           width: 34, height: 34, borderRadius: 8,
           background: 'rgba(148,163,184,0.05)',
@@ -142,6 +148,7 @@ export default function Navbar() {
       {/* Alerts bell */}
       <button
         title={`${criticalCount} critical alerts`}
+        className="topbar-icon-btn"
         style={{
           width: 34, height: 34, borderRadius: 8,
           background: criticalCount > 0 ? 'rgba(239,68,68,0.1)' : 'rgba(148,163,184,0.05)',

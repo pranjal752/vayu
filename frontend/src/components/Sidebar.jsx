@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom'
-import { LayoutDashboard, BarChart2, FileText, Wind, ChevronRight, Layers, Satellite, MessageSquare, Map } from 'lucide-react'
+import { LayoutDashboard, BarChart2, FileText, Wind, ChevronRight, Layers, Satellite, MessageSquare, Map, X } from 'lucide-react'
 import useAQIStore from '../store/useAQIStore'
 import { getAQIColor, getAQILabel } from '../utils/aqiColors'
 
@@ -12,24 +12,25 @@ const NAV = [
 
 const ROLES = ['admin', 'analyst', 'citizen']
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen = false, onClose = () => {} }) {
   const location = useLocation()
   const { cityAqi, activeRole, setRole } = useAQIStore()
   const { activeLayers, toggleLayer } = useAQIStore()
   const aqiColor = getAQIColor(cityAqi)
 
   return (
-    <aside style={{
+    <aside className={`sidebar-shell ${isOpen ? 'open' : ''}`} style={{
       width: 230,
       minWidth: 230,
-      height: '100vh',
-      background: 'linear-gradient(175deg, rgba(14,33,28,0.94) 0%, rgba(16,39,33,0.92) 100%)',
+      height: '100%',
+      background: 'linear-gradient(175deg, rgba(9,27,23,0.96) 0%, rgba(12,35,30,0.94) 100%)',
       borderRight: '1px solid rgba(167,243,208,0.12)',
       display: 'flex',
       flexDirection: 'column',
       padding: '0',
       position: 'relative',
       zIndex: 10,
+      boxShadow: '0 10px 35px rgba(2, 6, 23, 0.35)',
     }}>
       {/* Logo */}
       <div style={{
@@ -37,89 +38,77 @@ export default function Sidebar() {
         borderBottom: '1px solid rgba(167,243,208,0.12)',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-between',
         gap: 12,
       }}>
-        <div style={{
-          width: 44,
-          height: 40,
-          borderRadius: 11,
-          background: 'linear-gradient(145deg, rgba(29,78,216,0.26) 0%, rgba(124,58,237,0.23) 100%)',
-          border: '1px solid rgba(96,165,250,0.34)',
-          position: 'relative',
-          overflow: 'hidden',
-          boxShadow: '0 8px 18px rgba(29,78,216,0.24)',
-          flexShrink: 0,
-        }}>
-          <span style={{
-            position: 'absolute',
-            width: 17,
-            height: 17,
-            borderRadius: '50%',
-            left: 6,
-            top: 14,
-            background: 'rgba(191,219,254,0.92)',
-          }} />
-          <span style={{
-            position: 'absolute',
-            width: 20,
-            height: 20,
-            borderRadius: '50%',
-            left: 15,
-            top: 9,
-            background: 'rgba(219,234,254,0.95)',
-          }} />
-          <span style={{
-            position: 'absolute',
-            width: 16,
-            height: 16,
-            borderRadius: '50%',
-            left: 25,
-            top: 14,
-            background: 'rgba(191,219,254,0.92)',
-          }} />
-          <span style={{
-            position: 'absolute',
-            left: 8,
-            top: 24,
-            width: 29,
-            height: 10,
-            borderRadius: 6,
-            background: 'rgba(219,234,254,0.95)',
-          }} />
-          <span style={{
-            position: 'absolute',
-            right: 5,
-            top: 5,
-            fontSize: 9,
-            fontWeight: 900,
-            color: '#38bdf8',
-            textShadow: '0 0 8px rgba(56,189,248,0.65)',
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{
+            width: 44,
+            height: 40,
+            borderRadius: 11,
+            background: 'linear-gradient(145deg, rgba(20,184,166,0.24) 0%, rgba(14,116,144,0.24) 100%)',
+            border: '1px solid rgba(45,212,191,0.34)',
+            position: 'relative',
+            overflow: 'hidden',
+            boxShadow: '0 8px 18px rgba(20,184,166,0.22)',
+            flexShrink: 0,
           }}>
-            V
-          </span>
-          <span style={{
-            position: 'absolute',
-            bottom: 4,
-            left: 8,
-            width: 14,
-            height: 1.5,
-            borderRadius: 2,
-            background: 'rgba(125,211,252,0.75)',
-          }} />
-          <span style={{
-            position: 'absolute',
-            bottom: 4,
-            left: 24,
-            width: 10,
-            height: 1.5,
-            borderRadius: 2,
-            background: 'rgba(125,211,252,0.55)',
-          }} />
+            <span style={{
+              position: 'absolute',
+              width: 17,
+              height: 17,
+              borderRadius: '50%',
+              left: 6,
+              top: 14,
+              background: 'rgba(204,251,241,0.92)',
+            }} />
+            <span style={{
+              position: 'absolute',
+              width: 20,
+              height: 20,
+              borderRadius: '50%',
+              left: 15,
+              top: 9,
+              background: 'rgba(240,253,250,0.95)',
+            }} />
+            <span style={{
+              position: 'absolute',
+              width: 16,
+              height: 16,
+              borderRadius: '50%',
+              left: 25,
+              top: 14,
+              background: 'rgba(204,251,241,0.92)',
+            }} />
+            <span style={{
+              position: 'absolute',
+              left: 8,
+              top: 24,
+              width: 29,
+              height: 10,
+              borderRadius: 6,
+              background: 'rgba(240,253,250,0.95)',
+            }} />
+            <span style={{
+              position: 'absolute',
+              right: 5,
+              top: 5,
+              fontSize: 9,
+              fontWeight: 900,
+              color: '#2dd4bf',
+              textShadow: '0 0 8px rgba(45,212,191,0.65)',
+            }}>
+              V
+            </span>
+          </div>
+          <div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#f1f5f9', letterSpacing: '-0.3px' }}>VAYU</div>
+            <div style={{ fontSize: 10, color: '#64748b', fontWeight: 500, letterSpacing: '0.5px' }}>AIR INTELLIGENCE</div>
+          </div>
         </div>
-        <div>
-          <div style={{ fontSize: 16, fontWeight: 700, color: '#f1f5f9', letterSpacing: '-0.3px' }}>VAYU</div>
-          <div style={{ fontSize: 10, color: '#64748b', fontWeight: 500, letterSpacing: '0.5px' }}>AIR INTELLIGENCE</div>
-        </div>
+        <button className="sidebar-close-btn" onClick={onClose} aria-label="Close sidebar">
+          <X size={14} />
+        </button>
       </div>
 
       {/* City AQI panel */}
@@ -157,7 +146,7 @@ export default function Sidebar() {
         {NAV.map(({ to, icon: Icon, label }) => {
           const isActive = location.pathname.startsWith(to)
           return (
-            <NavLink key={to} to={to} style={{
+            <NavLink key={to} to={to} onClick={onClose} style={{
               display: 'flex', alignItems: 'center', gap: 10,
               padding: '9px 11px',
               borderRadius: 9,
@@ -190,7 +179,7 @@ export default function Sidebar() {
           const active = activeLayers.includes(key)
           return (
             <button key={key} onClick={() => toggleLayer(key)} style={{
-              display: 'flex', alignItems: 'center', gap: 9,
+                  display: 'flex', alignItems: 'center', gap: 9,
               padding: '7px 10px', width: '100%',
               borderRadius: 7, marginBottom: 2,
               background: active ? `${color}0d` : 'transparent',

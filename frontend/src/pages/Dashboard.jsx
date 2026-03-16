@@ -49,7 +49,7 @@ export default function Dashboard() {
   return (
     <div style={{
       display: 'grid',
-      gridTemplateColumns: 'minmax(0, 1fr) minmax(300px, 27%)',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
       gap: 14,
       width: '100%',
       alignItems: 'start',
@@ -179,7 +179,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── Forecast + Sources row ───────────────────────── */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(230px, 270px)', gap: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14 }}>
 
         {/* Forecast */}
         <div style={card({ padding: 16 })}>
@@ -263,7 +263,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── Right utility rail ───────────────────────────────────── */}
-      <aside style={{ display: 'flex', flexDirection: 'column', gap: 12, position: 'sticky', top: 12, minWidth: 0 }}>
+      <aside style={{ display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
         <div style={card({
           padding: 14,
           background: `linear-gradient(145deg, ${aqiColor}12 0%, rgba(7,12,24,0.9) 68%)`,

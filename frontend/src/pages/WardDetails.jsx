@@ -58,7 +58,7 @@ export default function WardDetails() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, animation: 'fadeSlideIn 0.35s ease' }}>
 
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
         <button onClick={() => navigate(-1)} style={{
           width: 34, height: 34, borderRadius: 8, background: 'rgba(148,163,184,0.06)',
           border: '1px solid rgba(148,163,184,0.12)', color: '#94a3b8',
@@ -104,7 +104,7 @@ export default function WardDetails() {
       </div>
 
       {/* Pollutant cards + Forecast */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))', gap: 10 }}>
         {POLLUTANTS.map((p) => {
           const val = ward[p.key]
           const exceeded = val > p.safe
@@ -135,7 +135,7 @@ export default function WardDetails() {
       </div>
 
       {/* Charts row */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
         <div style={card({ padding: 16 })}>
           <ForecastChart data={history}  title="24-Hour AQI History"  height={190} />
         </div>
@@ -145,7 +145,7 @@ export default function WardDetails() {
       </div>
 
       {/* Source + Reports */}
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 14 }}>
         {/* Primary source */}
         <div style={card({ padding: 16 })}>
           <div style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', marginBottom: 14 }}>

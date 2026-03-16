@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import Sidebar from './components/Sidebar'
 import Navbar from './components/Navbar'
 import Dashboard from './pages/Dashboard'
@@ -8,25 +9,28 @@ import Reports from './pages/Reports'
 import './App.css'
 
 export default function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 1080) {
+        setSidebarOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
   return (
     <BrowserRouter>
-      <div style={{
-        display: 'flex',
-        height: '100vh',
-        overflow: 'hidden',
-        background: 'linear-gradient(160deg, #0e1b17 0%, #132520 100%)',
-        color: '#dbe7e2',
-        fontFamily: "'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-      }}>
-        <Sidebar />
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
-          <Navbar />
-          <main style={{
-            flex: 1,
-            overflow: 'auto',
-            padding: '22px 18px 22px 22px',
-            background: 'transparent',
-          }}>
+      <div className="app-shell">
+        <div className="app-backdrop-grid" />
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        {sidebarOpen && <button className="sidebar-overlay" onClick={() => setSidebarOpen(false)} aria-label="Close navigation" />}
+        <div className="app-main-column">
+          <Navbar onToggleSidebar={() => setSidebarOpen((open) => !open)} />
+          <main className="app-main-content">
             <Routes>
               <Route path="/"           element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard"  element={<Dashboard />} />
